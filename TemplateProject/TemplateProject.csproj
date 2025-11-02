@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<UseWPF>true</UseWPF>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<ImplicitUsings>false</ImplicitUsings>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Configurations>
+			Release;
+			Debug;
+			RL2019;RL2020;RL2021;RL2022;RL2023;RL2024;RL2025;RL2026;
+			DB2019;DB2020;DB2021;DB2022;DB2023;DB2024;DB2025;DB2026
+		</Configurations>
+	</PropertyGroup>
+
+	<!-- RevitVersion -->
+	<Choose>
+		<When Condition="$(Configuration.Contains('2019'))">
+			<PropertyGroup>
+				<RevitVersion>2019</RevitVersion>
+				<TargetFramework>net47</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.Contains('2020'))">
+			<PropertyGroup>
+				<RevitVersion>2020</RevitVersion>
+				<TargetFramework>net47</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.Contains('2021'))">
+			<PropertyGroup>
+				<RevitVersion>2021</RevitVersion>
+				<TargetFramework>net48</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.Contains('2022'))">
+			<PropertyGroup>
+				<RevitVersion>2022</RevitVersion>
+				<TargetFramework>net48</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.Contains('2023'))">
+			<PropertyGroup>
+				<RevitVersion>2023</RevitVersion>
+				<TargetFramework>net48</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.Contains('2024'))">
+			<PropertyGroup>
+				<RevitVersion>2024</RevitVersion>
+				<TargetFramework>net48</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.Contains('2025'))">
+			<PropertyGroup>
+				<RevitVersion>2025</RevitVersion>
+				<TargetFramework>net8.0-windows</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.Contains('2026'))">
+			<PropertyGroup>
+				<RevitVersion>2026</RevitVersion>
+				<TargetFramework>net8.0-windows</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<RevitVersion>2019</RevitVersion>
+				<TargetFramework>net47</TargetFramework>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
+	<!-- Net Core -->
+	<PropertyGroup Condition="!$(TargetFramework.StartsWith('net4'))">
+		<EnableDynamicLoading>true</EnableDynamicLoading>
+		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+		<DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
+		<GenerateDependencyFile>false</GenerateDependencyFile>
+	</PropertyGroup>
+
+	<!-- Release -->
+	<PropertyGroup Condition="$(Configuration.Contains('RL'))">
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\$(RevitVersion)</OutputPath>
+		<DefineConstants>$(DefineConstants);RL;REVIT$(RevitVersion)</DefineConstants>
+		<NoWarn>MSB3052</NoWarn>
+		<DebugType>None</DebugType>
+	</PropertyGroup>
+
+	<!-- Debug -->
+	<PropertyGroup Condition="$(Configuration.Contains('DB'))">
+		<DebugSymbols>true</DebugSymbols>
+		<OutputPath>bin\Debug\$(RevitVersion)</OutputPath>
+		<DefineConstants>$(DefineConstants);DB;TRACE;REVIT$(RevitVersion)</DefineConstants>
+		<DebugType>Full</DebugType>
+	</PropertyGroup>
+
+	<!-- DebugRevitVersion -->
+	<PropertyGroup Condition="$(Configuration.Contains('DB'))">
+		<DebugRevitVersion>$(RevitVersion)</DebugRevitVersion>
+		<StartAction>Program</StartAction>
+		<StartProgram>$(ProgramW6432)\Autodesk\Revit $(DebugRevitVersion)\Revit.exe</StartProgram>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>$safeprojectname$</PackageId>
+		<Version Condition="'$(Version)' == ''">1.0.0</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<IncludePackageReferencesDuringMarkupCompilation>false</IncludePackageReferencesDuringMarkupCompilation>
+		<Revision>$([MSBuild]::Divide($([System.DateTime]::Now.TimeOfDay.TotalSeconds), 4).ToString('F0'))</Revision>
+		<!--<PackageAssemblyVersion>.Dev.$(Version).$(Revision)</PackageAssemblyVersion>-->
+		<PackageAssemblyVersion>$(Version)</PackageAssemblyVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Company>PaperEngineer</Company>
+		<Authors>Cazorlas</Authors>
+		<Description>Revit Plugin Description for $(PackageId).</Description>
+		<CopyrightYears>$([System.DateTime]::Now.ToString('yyyy'))</CopyrightYears>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<AssemblyName>$(PackageId).$(PackageAssemblyVersion)</AssemblyName>
+		<Product>$(PackageId)</Product>
+		<Copyright>Copyright © $(CopyrightYears) $(Company)</Copyright>
+	</PropertyGroup>
+
+	<!--Define obfuscar Exe-->
+	<PropertyGroup>
+		<ObfuscarExe>$(NuGetPackageRoot)obfuscar\2.2.49\tools\Obfuscar.Console.exe</ObfuscarExe>
+	</PropertyGroup>
+
+	<!-- Launch configuration -->
+	<PropertyGroup>
+		<StartAction>Program</StartAction>
+		<StartProgram>C:\Program Files\Autodesk\Revit $(RevitVersion)\Revit.exe</StartProgram>
+		<StartArguments>/language ENG</StartArguments>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\Engineer.ico" />
+		<None Remove="Resources\EngineerSilly24x24.png" />
+		<None Remove="Resources\Revit.ico" />
+	</ItemGroup>
+
+	<!--Autodesk namespace-->
+	<ItemGroup>
+		<!--2019-->
+		<Reference Include="RevitAPI" Condition="$(Configuration.Contains('2019'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2019\RevitAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIUI" Condition="$(Configuration.Contains('2019'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2019\RevitAPIUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIIFC" Condition="$(Configuration.Contains('2019'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2019\RevitAPIIFC.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AdWindows" Condition="$(Configuration.Contains('2019'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2019\AdWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UIFramework" Condition="$(Configuration.Contains('2019'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2019\UIFramework.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<!--2020-->
+		<Reference Include="RevitAPI" Condition="$(Configuration.Contains('2020'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2020\RevitAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIUI" Condition="$(Configuration.Contains('2020'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2020\RevitAPIUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIIFC" Condition="$(Configuration.Contains('2020'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2020\RevitAPIIFC.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AdWindows" Condition="$(Configuration.Contains('2020'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2020\AdWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UIFramework" Condition="$(Configuration.Contains('2020'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2020\UIFramework.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoCore" Condition="$(Configuration.Contains('2020'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2020\AddIns\DynamoForRevit\DynamoCore.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoRevitDS" Condition="$(Configuration.Contains('2020'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2020\AddIns\DynamoForRevit\Revit\DynamoRevitDS.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<!--2021-->
+		<Reference Include="RevitAPI" Condition="$(Configuration.Contains('2021'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2021\RevitAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIUI" Condition="$(Configuration.Contains('2021'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2021\RevitAPIUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIIFC" Condition="$(Configuration.Contains('2021'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2021\RevitAPIIFC.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AdWindows" Condition="$(Configuration.Contains('2021'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2021\AdWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UIFramework" Condition="$(Configuration.Contains('2021'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2021\UIFramework.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoCore" Condition="$(Configuration.Contains('2021'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2021\AddIns\DynamoForRevit\DynamoCore.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoRevitDS" Condition="$(Configuration.Contains('2021'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2021\AddIns\DynamoForRevit\Revit\DynamoRevitDS.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<!--2022-->
+		<Reference Include="RevitAPI" Condition="$(Configuration.Contains('2022'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2022\RevitAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIUI" Condition="$(Configuration.Contains('2022'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2022\RevitAPIUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIIFC" Condition="$(Configuration.Contains('2022'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2022\RevitAPIIFC.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AdWindows" Condition="$(Configuration.Contains('2022'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2022\AdWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UIFramework" Condition="$(Configuration.Contains('2022'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2022\UIFramework.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoCore" Condition="$(Configuration.Contains('2022'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2022\AddIns\DynamoForRevit\DynamoCore.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoRevitDS" Condition="$(Configuration.Contains('2022'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2022\AddIns\DynamoForRevit\Revit\DynamoRevitDS.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<!--2023-->
+		<Reference Include="RevitAPI" Condition="$(Configuration.Contains('2023'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2023\RevitAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIUI" Condition="$(Configuration.Contains('2023'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2023\RevitAPIUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIIFC" Condition="$(Configuration.Contains('2023'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2023\RevitAPIIFC.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AdWindows" Condition="$(Configuration.Contains('2023'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2023\AdWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UIFramework" Condition="$(Configuration.Contains('2023'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2023\UIFramework.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoCore" Condition="$(Configuration.Contains('2023'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2023\AddIns\DynamoForRevit\DynamoCore.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoRevitDS" Condition="$(Configuration.Contains('2023'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2023\AddIns\DynamoForRevit\Revit\DynamoRevitDS.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<!--2024-->
+		<Reference Include="RevitAPI" Condition="$(Configuration.Contains('2024'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2024\RevitAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIUI" Condition="$(Configuration.Contains('2024'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2024\RevitAPIUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIIFC" Condition="$(Configuration.Contains('2024'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2024\RevitAPIIFC.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AdWindows" Condition="$(Configuration.Contains('2024'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2024\AdWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UIFramework" Condition="$(Configuration.Contains('2024'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2024\UIFramework.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoCore" Condition="$(Configuration.Contains('2024'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2024\AddIns\DynamoForRevit\DynamoCore.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoRevitDS" Condition="$(Configuration.Contains('2024'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2024\AddIns\DynamoForRevit\Revit\DynamoRevitDS.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<!--2025-->
+		<Reference Include="RevitAPI" Condition="$(Configuration.Contains('2025'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2025\RevitAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIUI" Condition="$(Configuration.Contains('2025'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2025\RevitAPIUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIIFC" Condition="$(Configuration.Contains('2025'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2025\RevitAPIIFC.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AdWindows" Condition="$(Configuration.Contains('2025'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2025\AdWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UIFramework" Condition="$(Configuration.Contains('2025'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2025\UIFramework.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoCore" Condition="$(Configuration.Contains('2025'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2025\AddIns\DynamoForRevit\DynamoCore.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoRevitDS" Condition="$(Configuration.Contains('2025'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2025\AddIns\DynamoForRevit\Revit\DynamoRevitDS.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<!--2026-->
+		<Reference Include="RevitAPI" Condition="$(Configuration.Contains('2026'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2026\RevitAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIUI" Condition="$(Configuration.Contains('2026'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2026\RevitAPIUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIIFC" Condition="$(Configuration.Contains('2026'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2026\RevitAPIIFC.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AdWindows" Condition="$(Configuration.Contains('2026'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2026\AdWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoCore" Condition="$(Configuration.Contains('2026'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2026\AddIns\DynamoForRevit\DynamoCore.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="DynamoRevitDS" Condition="$(Configuration.Contains('2026'))">
+			<HintPath>$(ProgramW6432)\Autodesk\Revit 2026\AddIns\DynamoForRevit\Revit\DynamoRevitDS.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+
+	<!--Nudget-->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+
+		<PackageReference Include="MSBuild.Obfuscar" Version="2.2.49">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Obfuscar" Version="2.2.49">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<!--Nudget with condition-->
+	<!--<ItemGroup Condition="$(Configuration.Contains('2026'))">
+		<PackageReference Include="Nice3point.Revit.Extensions" Version="2026.0.1" />
+	</ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('2025'))">
+		<PackageReference Include="Nice3point.Revit.Extensions" Version="2025.1.1" />
+	</ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('2024'))">
+		<PackageReference Include="Nice3point.Revit.Extensions" Version="2024.2.1" />
+	</ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('2023'))">
+		<PackageReference Include="Nice3point.Revit.Extensions" Version="2023.4.1" />
+	</ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('2022'))">
+		<PackageReference Include="Nice3point.Revit.Extensions" Version="2022.4.1" />
+	</ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('2021'))">
+		<PackageReference Include="Nice3point.Revit.Extensions" Version="2021.4.1" />
+	</ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('2020'))">
+		<PackageReference Include="Nice3point.Revit.Extensions" Version="2020.4.1" />
+	</ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('2019'))">
+		<PackageReference Include="Nice3point.Revit.Extensions" Version="2019.1.9" />
+	</ItemGroup>-->
+
+	<!--Other namespace for Net.Frame-->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<Reference Include="System.Windows" />
+		<Reference Include="System.Windows.Forms" />
+	</ItemGroup>
+
+	<!--Other namespace for Net.Core-->
+	<ItemGroup Condition="!$(TargetFramework.StartsWith('net4'))">
+		<PackageReference Include="System.Drawing.Common" Version="8.0.20" />
+		<FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+	</ItemGroup>
+
+	<!--Resource-->
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Properties\Settings.Designer.cs">
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Properties\Settings.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
+			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\Images\Engineer.ico" />
+		<Resource Include="Resources\Images\EngineerSilly24x24.png" />
+		<Resource Include="Resources\Images\Revit.ico" />
+	</ItemGroup>
+
+	<!--Build events-->
+	<PropertyGroup Condition="$(Configuration.Contains('RL'))">
+		<!--Pre Build-->
+		<PreBuildEvent>
+		</PreBuildEvent>
+		<!--Post Build-->
+		<PostBuildEvent>
+			echo Configuration: $(Configuration)
+
+			if "$(Configuration)" == "RL2019" goto 2019
+			if "$(Configuration)" == "RL2020" goto 2020
+			if "$(Configuration)" == "RL2021" goto 2021
+			if "$(Configuration)" == "RL2022" goto 2022
+			if "$(Configuration)" == "RL2023" goto 2023
+			if "$(Configuration)" == "RL2024" goto 2024
+			if "$(Configuration)" == "RL2025" goto 2025
+			if "$(Configuration)" == "RL2026" goto 2026
+
+			:2019
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2019\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2019\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:2020
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2020\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2020\$(PackageId)\"  /E /I /Y /D
+			goto exit
+
+			:2021
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2021\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2021\$(PackageId)\"  /E /I /Y /D
+			goto exit
+
+			:2022
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2022\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2022\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:2023
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2023\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2023\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:2024
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2024\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2024\$(PackageId)\" /E /I /Y /D
+
+			:2025
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2025\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2025\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:2026
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2026\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2026\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:exit
+		</PostBuildEvent>
+	</PropertyGroup>
+
+	<!--Cleaning-->
+	<Target Name="MyClean" AfterTargets="BeforeClean">
+		<ItemGroup>
+			<BundleFolder Include="$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" />
+			<DllFolder Include="$(MSBuildProjectDirectory)\$(OutputPath)" />
+			<ObfuscarFolder Include="$(MSBuildProjectDirectory)\bin\Obfuscated\$(RevitVersion)" />
+		</ItemGroup>
+		<Message Condition="$(Configuration.Contains('RL'))" Text="------ Deleting @(BundleFolder) ------" Importance="high" ContinueOnError="true" />
+		<RemoveDir Condition="$(Configuration.Contains('RL'))" Directories="@(BundleFolder)" />
+		<Message Condition="$(Configuration.Contains('RL'))" Text="------ Deleting @(ObfuscarFolder) ------" Importance="high" ContinueOnError="true" />
+		<RemoveDir Condition="$(Configuration.Contains('RL'))" Directories="@(ObfuscarFolder)" />
+		<Message Condition="$(Configuration.Contains('RL'))" Text="------ Deleting @(DllFolder) ------" Importance="high" ContinueOnError="true" />
+		<RemoveDir Condition="$(Configuration.Contains('RL'))" Directories="@(DllFolder)" />
+	</Target>
+
+	<!--Post evnet for running obfuscar-->
+	<Target Name="RunObfuscar" AfterTargets="AfterBuild" Condition="$(Configuration.StartsWith('RL')) and Exists('$(MSBuildProjectDirectory)\Settings\obfuscar.$(RevitVersion).xml') and Exists('$(ObfuscarExe)')">
+		<Message Text="Obfuscating $(AssemblyName).dll with Obfuscar for Revit $(RevitVersion)..." Importance="high" />
+		<Exec Command="&quot;$(ObfuscarExe)&quot; &quot;$(MSBuildProjectDirectory)\Settings\obfuscar.$(RevitVersion).xml&quot;" WorkingDirectory="$(TargetDir)" ConsoleToMSBuild="true">
+			<Output TaskParameter="ConsoleOutput" PropertyName="ObfuscarLog" />
+		</Exec>
+		<Message Text="$(ObfuscarLog)" Importance="high" />
+	</Target>
+
+	<!--Copy to Bundle after obfuscar-->
+	<Target Name="CopyObfuscatedDllToBundle" AfterTargets="RunObfuscar" Condition="$(Configuration.StartsWith('RL')) &#xD;&#xA;            and Exists('$(MSBuildProjectDirectory)\bin\Obfuscated\$(RevitVersion)\$(AssemblyName).dll')">
+		<Message Text="Copying obfuscated DLL(s) to Bundle for Revit $(RevitVersion)..." Importance="high" />
+		<PropertyGroup>
+			<BundleDllDir>$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\$(RevitVersion)\$(PackageId)</BundleDllDir>
+		</PropertyGroup>
+		<ItemGroup>
+			<ObfuscatedDlls Include="$(MSBuildProjectDirectory)\bin\Obfuscated\$(RevitVersion)\*.dll" />
+		</ItemGroup>
+		<MakeDir Directories="$(BundleDllDir)" Condition="!Exists('$(BundleDllDir)')" />
+		<Copy SourceFiles="@(ObfuscatedDlls)" DestinationFolder="$(BundleDllDir)" SkipUnchangedFiles="true" />
+		<Message Text="Obfuscated DLL(s) copied to: $(BundleDllDir)" Importance="high" />
+	</Target>
+
+</Project>
