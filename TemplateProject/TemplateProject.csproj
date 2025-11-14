@@ -78,7 +78,7 @@
 		<EnableDynamicLoading>true</EnableDynamicLoading>
 		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
 		<DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
-		<GenerateDependencyFile>false</GenerateDependencyFile>
+		<GenerateDependencyFile>true</GenerateDependencyFile>
 	</PropertyGroup>
 
 	<!-- Release -->
@@ -111,7 +111,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<IncludePackageReferencesDuringMarkupCompilation>false</IncludePackageReferencesDuringMarkupCompilation>
+		<IncludePackageReferencesDuringMarkupCompilation>true</IncludePackageReferencesDuringMarkupCompilation>
 		<Revision>$([MSBuild]::Divide($([System.DateTime]::Now.TimeOfDay.TotalSeconds), 4).ToString('F0'))</Revision>
 		<!--<PackageAssemblyVersion>.Dev.$(Version).$(Revision)</PackageAssemblyVersion>-->
 		<PackageAssemblyVersion>$(Version)</PackageAssemblyVersion>

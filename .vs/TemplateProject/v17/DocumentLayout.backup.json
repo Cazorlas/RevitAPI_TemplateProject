@@ -1,13 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\0.Repositories\\RevitAPI-C\\Revit API\\TemplateProject\\",
+  "WorkspaceRootPath": "D:\\0.Repositories\\RevitAPI_TemplateProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0E3320DD-49AE-4A91-B9C2-99B62CD293AC}|TemplateProject\\TemplateProject.csproj|d:\\0.repositories\\revitapi-c\\revit api\\templateproject\\templateproject\\app.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0E3320DD-49AE-4A91-B9C2-99B62CD293AC}|TemplateProject\\TemplateProject.csproj|d:\\0.repositories\\revitapi_templateproject\\templateproject\\app.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0E3320DD-49AE-4A91-B9C2-99B62CD293AC}|TemplateProject\\TemplateProject.csproj|solutionrelative:templateproject\\app.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0E3320DD-49AE-4A91-B9C2-99B62CD293AC}|TemplateProject\\TemplateProject.csproj|d:\\0.repositories\\revitapi-c\\revit api\\templateproject\\templateproject\\templateproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{0E3320DD-49AE-4A91-B9C2-99B62CD293AC}|TemplateProject\\TemplateProject.csproj|d:\\0.repositories\\revitapi_templateproject\\templateproject\\packagecontents.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{0E3320DD-49AE-4A91-B9C2-99B62CD293AC}|TemplateProject\\TemplateProject.csproj|solutionrelative:templateproject\\packagecontents.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E3320DD-49AE-4A91-B9C2-99B62CD293AC}|TemplateProject\\TemplateProject.csproj|d:\\0.repositories\\revitapi_templateproject\\templateproject\\templateproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{0E3320DD-49AE-4A91-B9C2-99B62CD293AC}|TemplateProject\\TemplateProject.csproj|solutionrelative:templateproject\\templateproject.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,24 +62,37 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PackageContents.xml",
+              "DocumentMoniker": "D:\\0.Repositories\\RevitAPI_TemplateProject\\TemplateProject\\PackageContents.xml",
+              "RelativeDocumentMoniker": "TemplateProject\\PackageContents.xml",
+              "ToolTip": "D:\\0.Repositories\\RevitAPI_TemplateProject\\TemplateProject\\PackageContents.xml",
+              "RelativeToolTip": "TemplateProject\\PackageContents.xml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-11-02T06:41:15.558Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "App.cs",
-              "DocumentMoniker": "D:\\0.Repositories\\RevitAPI-C\\Revit API\\TemplateProject\\TemplateProject\\App.cs",
+              "DocumentMoniker": "D:\\0.Repositories\\RevitAPI_TemplateProject\\TemplateProject\\App.cs",
               "RelativeDocumentMoniker": "TemplateProject\\App.cs",
-              "ToolTip": "D:\\0.Repositories\\RevitAPI-C\\Revit API\\TemplateProject\\TemplateProject\\App.cs",
+              "ToolTip": "D:\\0.Repositories\\RevitAPI_TemplateProject\\TemplateProject\\App.cs",
               "RelativeToolTip": "TemplateProject\\App.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-02T06:36:26.527Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "TemplateProject.csproj",
-              "DocumentMoniker": "D:\\0.Repositories\\RevitAPI-C\\Revit API\\TemplateProject\\TemplateProject\\TemplateProject.csproj",
+              "DocumentMoniker": "D:\\0.Repositories\\RevitAPI_TemplateProject\\TemplateProject\\TemplateProject.csproj",
               "RelativeDocumentMoniker": "TemplateProject\\TemplateProject.csproj",
-              "ToolTip": "D:\\0.Repositories\\RevitAPI-C\\Revit API\\TemplateProject\\TemplateProject\\TemplateProject.csproj",
+              "ToolTip": "D:\\0.Repositories\\RevitAPI_TemplateProject\\TemplateProject\\TemplateProject.csproj",
               "RelativeToolTip": "TemplateProject\\TemplateProject.csproj",
               "ViewState": "AgIAADwCAAAAAAAAAAAWwFoCAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
