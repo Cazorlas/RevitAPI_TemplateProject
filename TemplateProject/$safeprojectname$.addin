@@ -2,11 +2,11 @@
 <RevitAddIns>
     <AddIn Type="Application">
 		<Name>$projectname$</Name>
-		<Assembly>$projectname$\$safeprojectname$.1.0.0.dll</Assembly>
+		<Assembly>$projectname$\$safeprojectname$.dll</Assembly>
         <AddInId>$guid1$</AddInId>
 		<FullClassName>$safeprojectname$.App</FullClassName>
         <VendorId>Cazorlas</VendorId>
-        <VendorDescription>https://www.youtube.com/@paper.engineer</VendorDescription>
+        <VendorDescription>https://paperengineer.runasp.net/</VendorDescription>
         <VendorEmail>trinhvutuanhung@gmail.com</VendorEmail>
     </AddIn>
 </RevitAddIns>

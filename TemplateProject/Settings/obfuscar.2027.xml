@@ -2,7 +2,7 @@
 <Obfuscator>
 	<!-- ==== Paths ==== -->
 	<Var name="InPath"  value="." />
-	<Var name="OutPath" value="..\..\Obfuscated\2025" />
+	<Var name="OutPath" value="..\..\Obfuscated\2027" />
 	
 	<Var name="LogFile" value="$(OutPath)\mapping.txt" />
 	<Var name="XmlMapping" value="true" />
@@ -32,7 +32,7 @@
 
 	<!-- ==== Where to resolve references ==== -->
 	<AssemblySearchPath path="$(InPath)" />
-	<AssemblySearchPath path="C:\Program Files\Autodesk\Revit 2025" />
+	<AssemblySearchPath path="C:\Program Files\Autodesk\Revit 2027" />
 
 	<!--==== Thêm skip nếu muốn ==== -->
 

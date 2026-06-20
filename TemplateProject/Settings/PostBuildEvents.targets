@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!--Build events-->
+	<PropertyGroup Condition="$(Configuration.Contains('RL'))">
+		<!--Pre Build-->
+		<PreBuildEvent>
+		</PreBuildEvent>
+		<!--Post Build-->
+		<PostBuildEvent>
+			echo Configuration: $(Configuration)
+
+			if "$(Configuration)" == "RL2019" goto 2019
+			if "$(Configuration)" == "RL2020" goto 2020
+			if "$(Configuration)" == "RL2021" goto 2021
+			if "$(Configuration)" == "RL2022" goto 2022
+			if "$(Configuration)" == "RL2023" goto 2023
+			if "$(Configuration)" == "RL2024" goto 2024
+			if "$(Configuration)" == "RL2025" goto 2025
+			if "$(Configuration)" == "RL2026" goto 2026
+
+			:2019
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2019\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2019\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:2020
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2020\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2020\$(PackageId)\"  /E /I /Y /D
+			goto exit
+
+			:2021
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2021\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2021\$(PackageId)\"  /E /I /Y /D
+			goto exit
+
+			:2022
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2022\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2022\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:2023
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2023\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2023\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:2024
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2024\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2024\$(PackageId)\" /E /I /Y /D
+			goto exit
+			
+			:2025
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2025\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2025\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:2026
+			echo Copying results to $(RevitVersion)
+			REM -- Tạo thư mục bundle nếu chưa có --
+			if not exist "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle" mkdir "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle"
+			REM -- Copy .xml --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\PackageContents.xml" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\" /Y /D
+			REM -- Copy .addin --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2026\" /Y /D
+			REM -- Copy output --
+			if exist "$(AppData)\Autodesk\ApplicationPlugins" xcopy "$(MSBuildProjectDirectory)\$(OutputPath)\*" "$(AppData)\Autodesk\ApplicationPlugins\$(PackageId).bundle\Contents\2026\$(PackageId)\" /E /I /Y /D
+			goto exit
+
+			:exit
+		</PostBuildEvent>
+	</PropertyGroup>
+</Project>

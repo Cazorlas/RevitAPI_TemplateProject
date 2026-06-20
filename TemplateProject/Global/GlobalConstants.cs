@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TemplateProject.Global
+﻿namespace TemplateProject.Global
 {
     public static class GlobalConstants
     {
@@ -15,6 +9,7 @@ namespace TemplateProject.Global
             public const string APP_VERSION = "1.0.0";
             public const string AUTHOR = "PaperEngineer";
             public const string SUPPORT_EMAIL = "trinhvutuanhung@gmail.com";
+            public const string WEBSITE = "https://paperengineer.runasp.net/";
         }
     }
 }
