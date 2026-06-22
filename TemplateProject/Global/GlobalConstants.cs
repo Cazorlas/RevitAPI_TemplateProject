@@ -1,4 +1,4 @@
-﻿namespace TemplateProject.Global
+﻿namespace $safeprojectname$.Global
 {
     public static class GlobalConstants
     {

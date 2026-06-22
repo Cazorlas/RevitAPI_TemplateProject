@@ -3,7 +3,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System.Windows;
 
-namespace TemplateProject.Revit
+namespace $safeprojectname$.Revit
 {
     [Transaction(TransactionMode.Manual)]
     public class Command : IExternalCommand

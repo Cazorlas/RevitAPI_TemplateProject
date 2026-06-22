@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Revit API Add-in</Name>
+    <Description>Template for creating a C# Autodesk Revit API project.</Description>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>RevitAddin</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
+    <Icon>__TemplateIcon.png</Icon>
+    <PreviewImage>__PreviewImage.png</PreviewImage>
+    <LanguageTag>csharp</LanguageTag>
+    <PlatformTag>Desktop</PlatformTag>
+    <ProjectTypeTag>Revit API</ProjectTypeTag>
+    <ProjectTypeTag>PaperEngineer</ProjectTypeTag>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="TemplateProject.csproj" TargetFileName="$safeprojectname$.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="App.cs">App.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="$safeprojectname$.addin">$safeprojectname$.addin</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="PackageContents.xml">PackageContents.xml</ProjectItem>
+      <Folder Name="Global" TargetFolderName="Global">
+        <ProjectItem ReplaceParameters="true" TargetFileName="GlobalUsings.cs">GlobalUsings.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="GlobalConstants.cs">GlobalConstants.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.resx">Resources.resx</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Resources.Designer.cs">Resources.Designer.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Settings.settings">Settings.settings</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="Settings.Designer.cs">Settings.Designer.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Resources" TargetFolderName="Resources">
+        <Folder Name="Images" TargetFolderName="Images">
+          <ProjectItem ReplaceParameters="false" TargetFileName="Engineer.ico">Engineer.ico</ProjectItem>
+          <ProjectItem ReplaceParameters="false" TargetFileName="EngineerSilly24x24.png">EngineerSilly24x24.png</ProjectItem>
+          <ProjectItem ReplaceParameters="false" TargetFileName="Revit.ico">Revit.ico</ProjectItem>
+        </Folder>
+      </Folder>
+      <Folder Name="Revit" TargetFolderName="Revit">
+        <ProjectItem ReplaceParameters="true" TargetFileName="Command.cs">Command.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Settings" TargetFolderName="Settings">
+        <ProjectItem ReplaceParameters="true" TargetFileName="Autodesk.RevitVersion.targets">Autodesk.RevitVersion.targets</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="PostBuildEvents.targets">PostBuildEvents.targets</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="obfuscar.2019.xml">obfuscar.2019.xml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="obfuscar.2020.xml">obfuscar.2020.xml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="obfuscar.2021.xml">obfuscar.2021.xml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="obfuscar.2022.xml">obfuscar.2022.xml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="obfuscar.2023.xml">obfuscar.2023.xml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="obfuscar.2024.xml">obfuscar.2024.xml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="obfuscar.2025.xml">obfuscar.2025.xml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="obfuscar.2026.xml">obfuscar.2026.xml</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="obfuscar.2027.xml">obfuscar.2027.xml</ProjectItem>
+      </Folder>
+    </Project>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>RevitApiTemplate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</Assembly>
+    <FullClassName>RevitApiTemplate.RevitTemplateWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>

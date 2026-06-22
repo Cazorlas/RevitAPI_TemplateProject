@@ -72,7 +72,7 @@
 
 	<!--Define obfuscar Exe-->
 	<PropertyGroup>
-		<ObfuscarExe>$(NuGetPackageRoot)obfuscar\2.2.50\tools\Obfuscar.Console.exe</ObfuscarExe>
+		<ObfuscarExe>$(NuGetPackageRoot)obfuscar\2.2.49\tools\Obfuscar.Console.exe</ObfuscarExe>
 	</PropertyGroup>
 
 	<!-- Launch configuration -->
@@ -92,19 +92,20 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="*" />
 
-		<PackageReference Include="MSBuild.Obfuscar" Version="2.2.49">
+		<PackageReference Include="MSBuild.Obfuscar" Version="*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Obfuscar" Version="2.2.50">
+		<PackageReference Include="Obfuscar" Version="*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion).*" />
 	</ItemGroup>
 
 	<!--Autodesk namespace-->
-	<!--<Import Project="Settings\Autodesk.Namespace.targets" />-->
+	<ItemGroup>
+		<PackageReference Include="Revit_packages_all_versions" Version="$(RevitVersion).*-*" IncludeAssets="build; compile" PrivateAssets="All" />
+	</ItemGroup>
 
 	<!--Other namespace for Net.Frame-->
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">

@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.UI;
 
-namespace TemplateProject
+namespace $safeprojectname$
 {
     public class App : IExternalApplication
     {
